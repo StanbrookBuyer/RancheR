@@ -1,0 +1,32 @@
+url: https://StanbrookBuyer.github.io/RancheR
+
+template:
+  bootstrap: 5
+
+reference:
+- title: Economic benefit
+  desc: >
+    Estimate the annual dollar value of dung beetle activity to a cattle
+    operation.
+  contents:
+  - calc_dung_beetle_benefit
+  - scenario_decay_rate
+  - dung_scenarios
+- title: Climate-based decay
+  desc: >
+    Adjust the reference decay rates for a location's climate, using
+    WorldClim warmest-quarter bioclim variables.
+  contents:
+  - estimate_local_decay
+  - bioclim_warmest_quarter
+  - climate_decay_factor
+- title: Reference data
+  desc: Paper-derived constants and calibration values.
+  contents:
+  - rancher_constants
+
+articles:
+- title: Get started
+  navbar: ~
+  contents:
+  - RancheR

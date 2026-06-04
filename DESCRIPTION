@@ -1,0 +1,27 @@
+Package: RancheR
+Type: Package
+Title: Economic Benefit of Dung Beetles to Florida Ranchers
+Version: 0.1.0
+Authors@R: c(
+    person("Roisin", "Stanbrook-Buyer", email = "stanbrookr@cookman.edu",
+           role = c("aut", "cre")),
+    person("Mahadev", "Bhat", role = "aut"),
+    person("Joshua R.", "King", role = "aut"))
+Description: Estimates the annual economic value that dung beetles provide to
+    cattle operations by reducing the area of pasture fouled by dung pats,
+    based on empirical pat-decay data from Central Florida pasture research.
+    Provides the calculation functions powering the RancheR Shiny app.
+License: MIT + file LICENSE
+URL: https://github.com/StanbrookBuyer/RancheR, https://StanbrookBuyer.github.io/RancheR
+BugReports: https://github.com/StanbrookBuyer/RancheR/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    terra,
+    maps
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

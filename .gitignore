@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+docs/
+*.tar.gz
+..Rcheck/
+*.Rcheck/
+inst/doc

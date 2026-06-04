@@ -53,6 +53,13 @@
 </h1>
 </div>
 <p>Calculation functions for estimating the annual economic benefit of dung beetles to Florida cattle ranchers. These are the same calculations that power the RancheR Shiny app, packaged so others can use them directly in R.</p>
+<p>The package does two things:</p>
+<ul>
+<li>
+<strong>Economic benefit</strong> — <code><a href="reference/calc_dung_beetle_benefit.html">calc_dung_beetle_benefit()</a></code> turns dung beetle activity into an annual dollar value for a cattle operation.</li>
+<li>
+<strong>Climate-adjusted decay</strong> — <code><a href="reference/estimate_local_decay.html">estimate_local_decay()</a></code> rescales the reference decay rates for any location’s climate (WorldClim warmest-quarter temperature and precipitation), so the economics reflect <em>your</em> conditions, not just Central Florida.</li>
+</ul>
 <p>Based on empirical pat-decay data from Central Florida pasture research (Stanbrook-Buyer, Bhat &amp; King, 2024).</p>
 <div class="section level2">
 <h2 id="install">Install<a class="anchor" aria-label="anchor" href="#install"></a>
@@ -92,6 +99,30 @@
 <span></span>
 <span><span class="co"># Inspect the underlying constants</span></span>
 <span><span class="va">rancher_constants</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="climate-adjusted-decay">Climate-adjusted decay<a class="anchor" aria-label="anchor" href="#climate-adjusted-decay"></a>
+</h2>
+<p>The reference decay rates were measured at a single Central Florida site in summer. To estimate decay elsewhere, <code><a href="reference/estimate_local_decay.html">estimate_local_decay()</a></code> rescales them by how a location’s climate differs from that reference, using a Q10 temperature response and a saturating moisture response (calibrated so the reference site reproduces the measured rates exactly).</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Look up climate automatically from WorldClim (needs the `terra` package</span></span>
+<span><span class="co"># and an internet connection on first use):</span></span>
+<span><span class="va">est</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/estimate_local_decay.html">estimate_local_decay</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">31.5</span>, lon <span class="op">=</span> <span class="op">-</span><span class="fl">97.1</span><span class="op">)</span>   <span class="co"># central Texas</span></span>
+<span><span class="va">est</span><span class="op">$</span><span class="va">decay_rates</span>        <span class="co"># scenario decay rates (g/day) for this location</span></span>
+<span></span>
+<span><span class="co"># ...or supply warmest-quarter climate directly (no download, works offline):</span></span>
+<span><span class="va">est</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/estimate_local_decay.html">estimate_local_decay</a></span><span class="op">(</span></span>
+<span>  lat <span class="op">=</span> <span class="fl">44.0</span>, lon <span class="op">=</span> <span class="op">-</span><span class="fl">89.5</span>,                              <span class="co"># central Wisconsin</span></span>
+<span>  climate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>temp_warmq_C <span class="op">=</span> <span class="fl">20.3</span>, precip_warmq_mm <span class="op">=</span> <span class="fl">290</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Feed a climate-adjusted rate straight into the economic model:</span></span>
+<span><span class="fu"><a href="reference/calc_dung_beetle_benefit.html">calc_dung_beetle_benefit</a></span><span class="op">(</span></span>
+<span>  num_cattle     <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>  scenario       <span class="op">=</span> <span class="st">"Managed (low beetle abundance)"</span>,</span>
+<span>  decay_override <span class="op">=</span> <span class="va">est</span><span class="op">$</span><span class="va">decay_rates</span><span class="op">[[</span><span class="st">"Managed (low beetle abundance)"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="op">)</span><span class="op">$</span><span class="va">annual_value</span></span></code></pre></div>
+<p>See the <a href="https://StanbrookBuyer.github.io/RancheR/articles/RancheR.html">Get Started vignette</a> for the full climate model, including maps and the temperature/precipitation response surface.</p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>

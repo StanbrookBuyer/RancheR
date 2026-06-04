@@ -6,7 +6,7 @@ power the RancheR Shiny app, packaged so others can use them directly in
 R.
 
 Based on empirical pat-decay data from Central Florida pasture research
-(Stanbrook-Buyer, Bhat & King, *in preparation*).
+(Stanbrook-Buyer, Bhat & King, 2024).
 
 ## Install
 
@@ -48,6 +48,16 @@ calc_dung_beetle_benefit(
 # Inspect the underlying constants
 rancher_constants
 ```
+
+## Citation
+
+If you use `RancheR`, please cite the underlying paper (or run
+`citation("RancheR")`):
+
+> Stanbrook-Buyer, R., Bhat, M., & King, J. R. (2024). Economic value of
+> dung removal by dung beetles in US sub-tropical pastures. *Basic and
+> Applied Ecology*, *79*, 123–130.
+> <https://doi.org/10.1016/j.baae.2024.07.001>
 
 ## License
 

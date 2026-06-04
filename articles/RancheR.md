@@ -16,11 +16,10 @@ of a ranch.
 
 The package turns that ecological service into dollars, using empirical
 pat-decay data from Central Florida pasture research (Stanbrook-Buyer,
-Bhat & King, *in preparation*). It contains the same calculations that
-power the [RancheR Shiny
-app](https://github.com/StanbrookBuyer/RancheR), exposed as plain R
-functions so you can script them, batch them, or build your own tools on
-top.
+Bhat & King, 2024). It contains the same calculations that power the
+[RancheR Shiny app](https://github.com/StanbrookBuyer/RancheR), exposed
+as plain R functions so you can script them, batch them, or build your
+own tools on top.
 
 ## The model in brief
 
@@ -411,6 +410,7 @@ rate.](RancheR_files/figure-html/decay-map-1.png)
 
 If you use `RancheR` in your work, please cite:
 
-> Stanbrook-Buyer, R., Bhat, M., & King, J.R. Dung beetle ecosystem
-> services in Central Florida cattle pastures: an economic valuation
-> framework. *In preparation.*
+> Stanbrook-Buyer, R., Bhat, M., & King, J. R. (2024). Economic value of
+> dung removal by dung beetles in US sub-tropical pastures. *Basic and
+> Applied Ecology*, *79*, 123–130.
+> <https://doi.org/10.1016/j.baae.2024.07.001>

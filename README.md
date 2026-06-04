@@ -4,6 +4,15 @@ Calculation functions for estimating the annual economic benefit of dung beetles
 to Florida cattle ranchers. These are the same calculations that power the
 RancheR Shiny app, packaged so others can use them directly in R.
 
+The package does two things:
+
+- **Economic benefit** — `calc_dung_beetle_benefit()` turns dung beetle activity
+  into an annual dollar value for a cattle operation.
+- **Climate-adjusted decay** — `estimate_local_decay()` rescales the reference
+  decay rates for any location's climate (WorldClim warmest-quarter
+  temperature and precipitation), so the economics reflect *your* conditions,
+  not just Central Florida.
+
 Based on empirical pat-decay data from Central Florida pasture research
 (Stanbrook-Buyer, Bhat & King, 2024).
 
@@ -45,6 +54,38 @@ calc_dung_beetle_benefit(
 # Inspect the underlying constants
 rancher_constants
 ```
+
+## Climate-adjusted decay
+
+The reference decay rates were measured at a single Central Florida site in
+summer. To estimate decay elsewhere, `estimate_local_decay()` rescales them by
+how a location's climate differs from that reference, using a Q10 temperature
+response and a saturating moisture response (calibrated so the reference site
+reproduces the measured rates exactly).
+
+```r
+# Look up climate automatically from WorldClim (needs the `terra` package
+# and an internet connection on first use):
+est <- estimate_local_decay(lat = 31.5, lon = -97.1)   # central Texas
+est$decay_rates        # scenario decay rates (g/day) for this location
+
+# ...or supply warmest-quarter climate directly (no download, works offline):
+est <- estimate_local_decay(
+  lat = 44.0, lon = -89.5,                              # central Wisconsin
+  climate = c(temp_warmq_C = 20.3, precip_warmq_mm = 290)
+)
+
+# Feed a climate-adjusted rate straight into the economic model:
+calc_dung_beetle_benefit(
+  num_cattle     = 200,
+  scenario       = "Managed (low beetle abundance)",
+  decay_override = est$decay_rates[["Managed (low beetle abundance)"]]
+)$annual_value
+```
+
+See the [Get Started vignette](https://StanbrookBuyer.github.io/RancheR/articles/RancheR.html)
+for the full climate model, including maps and the temperature/precipitation
+response surface.
 
 ## Citation
 

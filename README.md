@@ -1,4 +1,4 @@
-# RancheR
+# RancheR <img src="man/figures/logo.png" align="right" height="139" alt="RancheR hex logo" />
 
 Calculation functions for estimating the annual economic benefit of dung beetles
 to Florida cattle ranchers. These are the same calculations that power the

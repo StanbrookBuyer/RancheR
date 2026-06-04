@@ -1,0 +1,22 @@
+citHeader("To cite RancheR in publications, please cite the paper the package is based on:")
+
+bibentry(
+  bibtype  = "Article",
+  title    = "Economic value of dung removal by dung beetles in US sub-tropical pastures",
+  author   = c(
+    person("Roisin", "Stanbrook-Buyer"),
+    person("Mahadev", "Bhat"),
+    person("Joshua R.", "King")
+  ),
+  journal  = "Basic and Applied Ecology",
+  year     = "2024",
+  volume   = "79",
+  pages    = "123--130",
+  doi      = "10.1016/j.baae.2024.07.001",
+  textVersion = paste(
+    "Stanbrook-Buyer, R., Bhat, M., & King, J. R. (2024).",
+    "Economic value of dung removal by dung beetles in US sub-tropical pastures.",
+    "Basic and Applied Ecology, 79, 123-130.",
+    "https://doi.org/10.1016/j.baae.2024.07.001"
+  )
+)

@@ -123,13 +123,18 @@ temperature/precipitation response surface.
 
 ## Citation
 
-If you use `RancheR`, please cite the underlying paper (or run
-`citation("RancheR")`):
+If you use `RancheR`, please cite package from the underlying paper:
 
 > Stanbrook-Buyer, R., Bhat, M., & King, J. R. (2024). Economic value of
 > dung removal by dung beetles in US sub-tropical pastures. *Basic and
 > Applied Ecology*, *79*, 123–130.
 > <https://doi.org/10.1016/j.baae.2024.07.001>
+
+### 
+
+> Stanbrook-Buyer, R., Bhat, M., & King, J. R. (2026). RancheR: Economic
+> Benefit of Dung Beetles to Florida Ranchers (Version 0.1.0) \[R
+> package\]. Zenodo. <https://doi.org/10.5281/zenodo.20558680>
 
 ## License
 

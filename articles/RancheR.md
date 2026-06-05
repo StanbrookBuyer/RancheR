@@ -17,9 +17,9 @@ of a ranch.
 The package turns that ecological service into dollars, using empirical
 pat-decay data from Central Florida pasture research (Stanbrook-Buyer,
 Bhat & King, 2024). It contains the same calculations that power the
-[RancheR Shiny app](https://github.com/StanbrookBuyer/RancheR), exposed
-as plain R functions so you can script them, batch them, or build your
-own tools on top.
+[RancheR Shiny app](https://rstanbrook-rancher.hf.space/), exposed as
+plain R functions so you can script them, batch them, or build your own
+tools on top.
 
 ## The model in brief
 

@@ -2,8 +2,8 @@
 
 Calculation functions for estimating the annual economic benefit of dung
 beetles to Florida cattle ranchers. These are the same calculations that
-power the RancheR Shiny app, packaged so others can use them directly in
-R.
+power the [RancheR Shiny app](https://rstanbrook-rancher.hf.space/),
+packaged so others can use them directly in R.
 
 The package does two things:
 

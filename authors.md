@@ -11,7 +11,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/StanbrookBuyer/RancheR/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/StanbrookBuyer/RancheR/blob/v0.1.0/inst/CITATION)
 
 Stanbrook-Buyer, R., Bhat, M., & King, J. R. (2026). RancheR: Economic
 Benefit of Dung Beetles to Florida Ranchers. R package version 0.1.0.

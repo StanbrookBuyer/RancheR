@@ -7,3 +7,8 @@ docs/
 ..Rcheck/
 *.Rcheck/
 inst/doc
+
+# Local-only test-drive document (never commit/push)
+test-drive.qmd
+test-drive.html
+test-drive_files/

@@ -70,11 +70,25 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"StanbrookBuyer/RancheR"</span><span class="op">)</span></span>
 <span><span class="co"># or, from a local copy:</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"path/to/RancheR"</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="docker">Docker<a class="anchor" aria-label="anchor" href="#docker"></a>
+</h3>
+<p>A ready-to-run image (R + RancheR + <code>terra</code>/GDAL, so the climate functions work) is published to the GitHub Container Registry on each release:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">docker</span> pull ghcr.io/stanbrookbuyer/rancher:latest</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co"># interactive R session with RancheR preloaded</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span> ghcr.io/stanbrookbuyer/rancher:latest</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co"># a one-off calculation</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> ghcr.io/stanbrookbuyer/rancher:latest Rscript <span class="at">-e</span> <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="st">'RancheR::calc_dung_beetle_benefit(100, "Managed (low beetle abundance)")$annual_value'</span></span></code></pre></div>
+<p>Or build it yourself from the repo with <code>docker build -t rancher .</code>.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="use">Use<a class="anchor" aria-label="anchor" href="#use"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StanbrookBuyer/RancheR" class="external-link">RancheR</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Available abundance scenarios</span></span>
@@ -105,7 +119,7 @@
 <h2 id="climate-adjusted-decay">Climate-adjusted decay<a class="anchor" aria-label="anchor" href="#climate-adjusted-decay"></a>
 </h2>
 <p>The reference decay rates were measured at a single Central Florida site in summer. To estimate decay elsewhere, <code><a href="reference/estimate_local_decay.html">estimate_local_decay()</a></code> rescales them by how a location’s climate differs from that reference, using a Q10 temperature response and a saturating moisture response (calibrated so the reference site reproduces the measured rates exactly).</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Look up climate automatically from WorldClim (needs the `terra` package</span></span>
 <span><span class="co"># and an internet connection on first use):</span></span>
 <span><span class="va">est</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/estimate_local_decay.html">estimate_local_decay</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">31.5</span>, lon <span class="op">=</span> <span class="op">-</span><span class="fl">97.1</span><span class="op">)</span>   <span class="co"># central Texas</span></span>

@@ -28,6 +28,24 @@ devtools::install_github("StanbrookBuyer/RancheR")
 devtools::install("path/to/RancheR")
 ```
 
+### Docker
+
+A ready-to-run image (R + RancheR + `terra`/GDAL, so the climate functions work)
+is published to the GitHub Container Registry on each release:
+
+```bash
+docker pull ghcr.io/stanbrookbuyer/rancher:latest
+
+# interactive R session with RancheR preloaded
+docker run --rm -it ghcr.io/stanbrookbuyer/rancher:latest
+
+# a one-off calculation
+docker run --rm ghcr.io/stanbrookbuyer/rancher:latest Rscript -e \
+  'RancheR::calc_dung_beetle_benefit(100, "Managed (low beetle abundance)")$annual_value'
+```
+
+Or build it yourself from the repo with `docker build -t rancher .`.
+
 ## Use
 
 ```r

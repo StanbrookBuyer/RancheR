@@ -91,6 +91,14 @@ scenario_decay_rate <- function(scenario, decay_override = NA_real_) {
 #'   no-beetle baseline rather than read from the empirical table.
 #' @param income_per_cow Ranch-level income per cow ($/yr).
 #' @param acre_per_cow Acres required per cow per year.
+#' @param climate_factor Climate scaling factor for the location, as returned by
+#'   [estimate_local_decay()] (`$climate_factor`). Slower decay (a factor below
+#'   1, e.g. cooler/drier sites) means both the no-beetle baseline and the
+#'   beetle scenarios foul pasture for proportionally longer, so the avoided
+#'   fouling - and therefore the dollar benefit - scales by `1 / climate_factor`.
+#'   Defaults to `1` (the Central Florida reference climate). Use this, with the
+#'   empirical `scenario` path, to get a location-adjusted benefit; it composes
+#'   correctly with the climate model whereas `decay_override` does not.
 #'
 #' @return A list with components:
 #'   \describe{
@@ -99,7 +107,8 @@ scenario_decay_rate <- function(scenario, decay_override = NA_real_) {
 #'     \item{days_to_decay}{Time for a single pat to decay (days).}
 #'     \item{decay_rate}{Decay rate used (g/day).}
 #'     \item{fouled_used}{Fouled GAU per cow per year used in the calculation.}
-#'     \item{avoided_gau_per_cow}{GAU per cow per year of fouling avoided vs. the no-beetle baseline.}
+#'     \item{avoided_gau_per_cow}{GAU per cow per year of fouling avoided vs. the no-beetle baseline (after any climate scaling).}
+#'     \item{climate_factor}{The climate scaling factor applied.}
 #'   }
 #' @examples
 #' calc_dung_beetle_benefit(num_cattle = 100)
@@ -107,6 +116,8 @@ scenario_decay_rate <- function(scenario, decay_override = NA_real_) {
 #'   num_cattle = 250,
 #'   scenario   = "Natural (high beetle abundance)"
 #' )
+#' # Location-adjusted: feed in a climate factor from estimate_local_decay()
+#' calc_dung_beetle_benefit(num_cattle = 200, climate_factor = 0.44)
 #' @export
 calc_dung_beetle_benefit <- function(
   num_cattle,
@@ -114,8 +125,13 @@ calc_dung_beetle_benefit <- function(
   pat_weight_g   = rancher_constants$initial_pat_g,
   decay_override = NA_real_,
   income_per_cow = rancher_constants$income_per_cow,
-  acre_per_cow   = rancher_constants$acre_per_cow
+  acre_per_cow   = rancher_constants$acre_per_cow,
+  climate_factor = 1
 ) {
+  if (!is.numeric(climate_factor) || length(climate_factor) != 1 ||
+        is.na(climate_factor) || climate_factor <= 0) {
+    stop("`climate_factor` must be a single positive number.", call. = FALSE)
+  }
   decay_g_day <- scenario_decay_rate(scenario, decay_override)
 
   # Days for a single pat to fully decay
@@ -137,7 +153,11 @@ calc_dung_beetle_benefit <- function(
   }
 
   baseline_fouled <- unname(fouled_tbl[["No beetles (low decay rate)"]])
-  avoided_gau_per_cow <- max(baseline_fouled - fouled_used, 0)
+  # Climate scaling: slower decay (factor < 1) fouls pasture for proportionally
+  # longer for BOTH the baseline and the beetle scenario, so the avoided fouling
+  # scales by 1 / climate_factor. At the reference climate (factor = 1) this is a
+  # no-op and the result matches the Central Florida figures.
+  avoided_gau_per_cow <- max(baseline_fouled - fouled_used, 0) / climate_factor
 
   gau_per_cow_year <- acre_per_cow * rancher_constants$gau_per_acre * 365
   additional_cows  <- (avoided_gau_per_cow * num_cattle) / gau_per_cow_year
@@ -149,6 +169,7 @@ calc_dung_beetle_benefit <- function(
     days_to_decay       = days_to_decay,
     decay_rate          = decay_g_day,
     fouled_used         = fouled_used,
-    avoided_gau_per_cow = avoided_gau_per_cow
+    avoided_gau_per_cow = avoided_gau_per_cow,
+    climate_factor      = climate_factor
   )
 }

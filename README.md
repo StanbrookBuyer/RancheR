@@ -75,12 +75,15 @@ est <- estimate_local_decay(
   lat = 44.0, lon = -89.5,                              # central Wisconsin
   climate = c(temp_warmq_C = 20.3, precip_warmq_mm = 290)
 )
+est$decay_rates        # climate-adjusted decay rates (g/day)
 
-# Feed a climate-adjusted rate straight into the economic model:
+# Feed the climate factor into the economic model. Where decay is slower
+# (cooler/drier), beetles avert more fouled-pasture-time, so the benefit is
+# higher than at the Florida reference:
 calc_dung_beetle_benefit(
   num_cattle     = 200,
   scenario       = "Managed (low beetle abundance)",
-  decay_override = est$decay_rates[["Managed (low beetle abundance)"]]
+  climate_factor = est$climate_factor
 )$annual_value
 ```
 

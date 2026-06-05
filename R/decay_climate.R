@@ -194,10 +194,11 @@ bioclim_warmest_quarter <- function(
 #' \dontrun{
 #' # Online: look up climate automatically (needs terra + internet)
 #' est <- estimate_local_decay(lat = 31.5, lon = -97.1)
+#' # Feed the climate factor into the economic model (composes correctly):
 #' calc_dung_beetle_benefit(
 #'   num_cattle     = 200,
 #'   scenario       = "Managed (low beetle abundance)",
-#'   decay_override = est$decay_rates[["Managed (low beetle abundance)"]]
+#'   climate_factor = est$climate_factor
 #' )
 #' }
 #' @export

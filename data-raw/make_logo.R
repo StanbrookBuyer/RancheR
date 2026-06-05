@@ -52,7 +52,7 @@ p <- ggplot() +
                     interpolate = TRUE) +
 
   # wordmark
-  annotate("text", x = 0, y = -0.54, label = "RancheR",
+  annotate("text", x = 0, y = -0.34, label = "RancheR",
            family = "sans", fontface = "bold", colour = cream, size = 9) +
 
   coord_fixed(xlim = c(-1, 1), ylim = c(-1.15, 1.15), expand = FALSE, clip = "off") +

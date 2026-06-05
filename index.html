@@ -115,12 +115,15 @@
 <span>  lat <span class="op">=</span> <span class="fl">44.0</span>, lon <span class="op">=</span> <span class="op">-</span><span class="fl">89.5</span>,                              <span class="co"># central Wisconsin</span></span>
 <span>  climate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>temp_warmq_C <span class="op">=</span> <span class="fl">20.3</span>, precip_warmq_mm <span class="op">=</span> <span class="fl">290</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
+<span><span class="va">est</span><span class="op">$</span><span class="va">decay_rates</span>        <span class="co"># climate-adjusted decay rates (g/day)</span></span>
 <span></span>
-<span><span class="co"># Feed a climate-adjusted rate straight into the economic model:</span></span>
+<span><span class="co"># Feed the climate factor into the economic model. Where decay is slower</span></span>
+<span><span class="co"># (cooler/drier), beetles avert more fouled-pasture-time, so the benefit is</span></span>
+<span><span class="co"># higher than at the Florida reference:</span></span>
 <span><span class="fu"><a href="reference/calc_dung_beetle_benefit.html">calc_dung_beetle_benefit</a></span><span class="op">(</span></span>
 <span>  num_cattle     <span class="op">=</span> <span class="fl">200</span>,</span>
 <span>  scenario       <span class="op">=</span> <span class="st">"Managed (low beetle abundance)"</span>,</span>
-<span>  decay_override <span class="op">=</span> <span class="va">est</span><span class="op">$</span><span class="va">decay_rates</span><span class="op">[[</span><span class="st">"Managed (low beetle abundance)"</span><span class="op">]</span><span class="op">]</span></span>
+<span>  climate_factor <span class="op">=</span> <span class="va">est</span><span class="op">$</span><span class="va">climate_factor</span></span>
 <span><span class="op">)</span><span class="op">$</span><span class="va">annual_value</span></span></code></pre></div>
 <p>See the <a href="https://StanbrookBuyer.github.io/RancheR/articles/RancheR.html">Get Started vignette</a> for the full climate model, including maps and the temperature/precipitation response surface.</p>
 </div>

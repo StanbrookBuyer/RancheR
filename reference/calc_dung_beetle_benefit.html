@@ -53,7 +53,8 @@ on empirical pat-decay data from Central Florida pasture research.</p>
 <span>  pat_weight_g <span class="op">=</span> <span class="va">rancher_constants</span><span class="op">$</span><span class="va">initial_pat_g</span>,</span>
 <span>  decay_override <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
 <span>  income_per_cow <span class="op">=</span> <span class="va">rancher_constants</span><span class="op">$</span><span class="va">income_per_cow</span>,</span>
-<span>  acre_per_cow <span class="op">=</span> <span class="va">rancher_constants</span><span class="op">$</span><span class="va">acre_per_cow</span></span>
+<span>  acre_per_cow <span class="op">=</span> <span class="va">rancher_constants</span><span class="op">$</span><span class="va">acre_per_cow</span>,</span>
+<span>  climate_factor <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -87,6 +88,17 @@ no-beetle baseline rather than read from the empirical table.</p></dd>
 <dt id="arg-acre-per-cow">acre_per_cow<a class="anchor" aria-label="anchor" href="#arg-acre-per-cow"></a></dt>
 <dd><p>Acres required per cow per year.</p></dd>
 
+
+<dt id="arg-climate-factor">climate_factor<a class="anchor" aria-label="anchor" href="#arg-climate-factor"></a></dt>
+<dd><p>Climate scaling factor for the location, as returned by
+<code><a href="estimate_local_decay.html">estimate_local_decay()</a></code> (<code>$climate_factor</code>). Slower decay (a factor below
+1, e.g. cooler/drier sites) means both the no-beetle baseline and the
+beetle scenarios foul pasture for proportionally longer, so the avoided
+fouling - and therefore the dollar benefit - scales by <code>1 / climate_factor</code>.
+Defaults to <code>1</code> (the Central Florida reference climate). Use this, with the
+empirical <code>scenario</code> path, to get a location-adjusted benefit; it composes
+correctly with the climate model whereas <code>decay_override</code> does not.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -106,7 +118,10 @@ no-beetle baseline rather than read from the empirical table.</p></dd>
 <dd><p>Fouled GAU per cow per year used in the calculation.</p></dd>
 
 <dt>avoided_gau_per_cow</dt>
-<dd><p>GAU per cow per year of fouling avoided vs. the no-beetle baseline.</p></dd>
+<dd><p>GAU per cow per year of fouling avoided vs. the no-beetle baseline (after any climate scaling).</p></dd>
+
+<dt>climate_factor</dt>
+<dd><p>The climate scaling factor applied.</p></dd>
 
 
 </dl></div>
@@ -132,6 +147,9 @@ no-beetle baseline rather than read from the empirical table.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $avoided_gau_per_cow</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 20272</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $climate_factor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">calc_dung_beetle_benefit</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  num_cattle <span class="op">=</span> <span class="fl">250</span>,</span></span>
 <span class="r-in"><span>  scenario   <span class="op">=</span> <span class="st">"Natural (high beetle abundance)"</span></span></span>
@@ -153,6 +171,32 @@ no-beetle baseline rather than read from the empirical table.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $avoided_gau_per_cow</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 30027</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $climate_factor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="co"># Location-adjusted: feed in a climate factor from estimate_local_decay()</span></span></span>
+<span class="r-in"><span><span class="fu">calc_dung_beetle_benefit</span><span class="op">(</span>num_cattle <span class="op">=</span> <span class="fl">200</span>, climate_factor <span class="op">=</span> <span class="fl">0.44</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $annual_value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2067.535</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $additional_cows</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.546225</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $days_to_decay</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 112.61</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $decay_rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7.23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $fouled_used</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 31820</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $avoided_gau_per_cow</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 46072.73</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $climate_factor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.44</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

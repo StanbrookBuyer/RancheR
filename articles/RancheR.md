@@ -68,6 +68,9 @@ res
 #> 
 #> $avoided_gau_per_cow
 #> [1] 20272
+#> 
+#> $climate_factor
+#> [1] 1
 ```
 
 The return value is a list. The two headline numbers are usually:
@@ -309,23 +312,31 @@ round(est$decay_rates, 2)
 The cooler, drier Wisconsin climate scales decay below the Florida
 baseline.
 
-### Feeding a local rate into the economic model
+### Feeding the climate into the economic model
 
-Pass a climate-adjusted rate straight into
-[`calc_dung_beetle_benefit()`](https://StanbrookBuyer.github.io/RancheR/reference/calc_dung_beetle_benefit.md)
-as the `decay_override`:
+Pass the location’s `climate_factor` into
+[`calc_dung_beetle_benefit()`](https://StanbrookBuyer.github.io/RancheR/reference/calc_dung_beetle_benefit.md).
+This composes correctly with the economic model: slower decay (a factor
+below 1) fouls pasture for proportionally longer under *both* the
+no-beetle baseline and the beetle scenario, so the avoided fouling — and
+the dollar benefit — scales by `1 / climate_factor`. Where decay is
+slower, beetles avert more fouled-pasture time, so the modelled benefit
+is *higher* than at the warmer Florida reference.
 
 ``` r
-
-managed_rate <- est$decay_rates[["Managed (low beetle abundance)"]]
 
 calc_dung_beetle_benefit(
   num_cattle     = 200,
   scenario       = "Managed (low beetle abundance)",
-  decay_override = managed_rate
+  climate_factor = est$climate_factor
 )$annual_value
-#> [1] 0
+#> [1] 2070.406
 ```
+
+(Note: `decay_override` is for manual single-rate exploration and is
+measured against the *fixed* Florida no-beetle baseline, so it does not
+compose with the climate model — use `climate_factor` for
+location-adjusted economics.)
 
 You can also inspect the raw bioclim values for a point with
 `bioclim_warmest_quarter(lat, lon)`.

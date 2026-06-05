@@ -129,7 +129,10 @@ sensible paper-derived default.</p>
 <span><span class="co">#&gt; [1] 31820</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $avoided_gau_per_cow</span></span>
-<span><span class="co">#&gt; [1] 20272</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 20272</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $climate_factor</span></span>
+<span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
 <p>The return value is a list. The two headline numbers are usually:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span><span class="op">$</span><span class="va">annual_value</span>     <span class="co"># estimated annual benefit, in dollars</span></span>
@@ -346,20 +349,27 @@ download needed:</p>
 baseline.</p>
 </div>
 <div class="section level3">
-<h3 id="feeding-a-local-rate-into-the-economic-model">Feeding a local rate into the economic model<a class="anchor" aria-label="anchor" href="#feeding-a-local-rate-into-the-economic-model"></a>
+<h3 id="feeding-the-climate-into-the-economic-model">Feeding the climate into the economic model<a class="anchor" aria-label="anchor" href="#feeding-the-climate-into-the-economic-model"></a>
 </h3>
-<p>Pass a climate-adjusted rate straight into
-<code><a href="../reference/calc_dung_beetle_benefit.html">calc_dung_beetle_benefit()</a></code> as the
-<code>decay_override</code>:</p>
+<p>Pass the location’s <code>climate_factor</code> into
+<code><a href="../reference/calc_dung_beetle_benefit.html">calc_dung_beetle_benefit()</a></code>. This composes correctly with
+the economic model: slower decay (a factor below 1) fouls pasture for
+proportionally longer under <em>both</em> the no-beetle baseline and the
+beetle scenario, so the avoided fouling — and the dollar benefit —
+scales by <code>1 / climate_factor</code>. Where decay is slower,
+beetles avert more fouled-pasture time, so the modelled benefit is
+<em>higher</em> than at the warmer Florida reference.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">managed_rate</span> <span class="op">&lt;-</span> <span class="va">est</span><span class="op">$</span><span class="va">decay_rates</span><span class="op">[[</span><span class="st">"Managed (low beetle abundance)"</span><span class="op">]</span><span class="op">]</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/calc_dung_beetle_benefit.html">calc_dung_beetle_benefit</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/calc_dung_beetle_benefit.html">calc_dung_beetle_benefit</a></span><span class="op">(</span></span>
 <span>  num_cattle     <span class="op">=</span> <span class="fl">200</span>,</span>
 <span>  scenario       <span class="op">=</span> <span class="st">"Managed (low beetle abundance)"</span>,</span>
-<span>  decay_override <span class="op">=</span> <span class="va">managed_rate</span></span>
+<span>  climate_factor <span class="op">=</span> <span class="va">est</span><span class="op">$</span><span class="va">climate_factor</span></span>
 <span><span class="op">)</span><span class="op">$</span><span class="va">annual_value</span></span>
-<span><span class="co">#&gt; [1] 0</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 2070.406</span></span></code></pre></div>
+<p>(Note: <code>decay_override</code> is for manual single-rate
+exploration and is measured against the <em>fixed</em> Florida no-beetle
+baseline, so it does not compose with the climate model — use
+<code>climate_factor</code> for location-adjusted economics.)</p>
 <p>You can also inspect the raw bioclim values for a point with
 <code>bioclim_warmest_quarter(lat, lon)</code>.</p>
 </div>

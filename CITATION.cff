@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite both the software and the paper it implements (see preferred-citation)."
+message: "If you use this software, please cite it using the metadata below. The underlying study is listed under references."
 title: "RancheR: Economic Benefit of Dung Beetles to Florida Ranchers"
 abstract: >-
   An R package that estimates the annual economic benefit of dung beetles to
@@ -28,19 +28,19 @@ authors:
     given-names: Mahadev
   - family-names: King
     given-names: Joshua R.
-preferred-citation:
-  type: article
-  title: "Economic value of dung removal by dung beetles in US sub-tropical pastures"
-  authors:
-    - family-names: Stanbrook-Buyer
-      given-names: Roisin
-    - family-names: Bhat
-      given-names: Mahadev
-    - family-names: King
-      given-names: Joshua R.
-  journal: "Basic and Applied Ecology"
-  year: 2024
-  volume: 79
-  start: 123
-  end: 130
-  doi: "10.1016/j.baae.2024.07.001"
+references:
+  - type: article
+    title: "Economic value of dung removal by dung beetles in US sub-tropical pastures"
+    authors:
+      - family-names: Stanbrook-Buyer
+        given-names: Roisin
+      - family-names: Bhat
+        given-names: Mahadev
+      - family-names: King
+        given-names: Joshua R.
+    journal: "Basic and Applied Ecology"
+    year: 2024
+    volume: 79
+    start: 123
+    end: 130
+    doi: "10.1016/j.baae.2024.07.001"

@@ -1,7 +1,30 @@
-citHeader("To cite RancheR in publications, please cite the paper the package is based on:")
+ver <- if (!is.null(meta$Version)) meta$Version else "0.1.0"
 
+citHeader("To cite the RancheR package in publications, use:")
+
+## Primary, stand-alone citation for the software
+bibentry(
+  bibtype  = "Manual",
+  title    = "RancheR: Economic Benefit of Dung Beetles to Florida Ranchers",
+  author   = c(
+    person("Roisin", "Stanbrook-Buyer"),
+    person("Mahadev", "Bhat"),
+    person("Joshua R.", "King")
+  ),
+  year     = "2026",
+  note     = paste("R package version", ver),
+  url      = "https://github.com/StanbrookBuyer/RancheR",
+  textVersion = paste0(
+    "Stanbrook-Buyer, R., Bhat, M., & King, J. R. (2026). ",
+    "RancheR: Economic Benefit of Dung Beetles to Florida Ranchers. ",
+    "R package version ", ver, ". https://github.com/StanbrookBuyer/RancheR"
+  )
+)
+
+## Secondary: the study the method is based on
 bibentry(
   bibtype  = "Article",
+  header   = "And, where relevant, the underlying study:",
   title    = "Economic value of dung removal by dung beetles in US sub-tropical pastures",
   author   = c(
     person("Roisin", "Stanbrook-Buyer"),

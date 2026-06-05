@@ -9,3 +9,4 @@
 ^data-raw$
 ^test-drive\.qmd$
 ^test-drive\.html$
+^CITATION\.cff$

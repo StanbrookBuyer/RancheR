@@ -10,3 +10,5 @@
 ^test-drive\.qmd$
 ^test-drive\.html$
 ^CITATION\.cff$
+^Dockerfile$
+^\.dockerignore$

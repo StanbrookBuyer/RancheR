@@ -1,0 +1,13 @@
+.git
+.github
+.Rproj.user
+*.Rproj
+docs
+data-raw
+test-drive.qmd
+test-drive.html
+test-drive_files
+*.tar.gz
+*.Rcheck
+.Rhistory
+.RData

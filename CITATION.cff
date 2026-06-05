@@ -11,8 +11,16 @@ type: software
 version: 0.1.0
 date-released: "2026-06-05"
 license: MIT
+doi: "10.5281/zenodo.20558680"
 repository-code: "https://github.com/StanbrookBuyer/RancheR"
 url: "https://StanbrookBuyer.github.io/RancheR"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.20558680"
+    description: "Concept DOI (resolves to the latest version)"
+  - type: doi
+    value: "10.5281/zenodo.20558681"
+    description: "Version DOI for v0.1.0"
 keywords:
   - dung beetles
   - ecosystem services

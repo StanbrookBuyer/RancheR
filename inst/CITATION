@@ -13,11 +13,12 @@ bibentry(
   ),
   year     = "2026",
   note     = paste("R package version", ver),
+  doi      = "10.5281/zenodo.20558680",
   url      = "https://github.com/StanbrookBuyer/RancheR",
   textVersion = paste0(
     "Stanbrook-Buyer, R., Bhat, M., & King, J. R. (2026). ",
     "RancheR: Economic Benefit of Dung Beetles to Florida Ranchers. ",
-    "R package version ", ver, ". https://github.com/StanbrookBuyer/RancheR"
+    "R package version ", ver, ". https://doi.org/10.5281/zenodo.20558680"
   )
 )
 
